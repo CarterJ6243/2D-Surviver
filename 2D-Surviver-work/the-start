@@ -1,0 +1,22 @@
+let time;
+
+function setup(){
+ createCanvas(400,400) 
+
+}
+function draw(){
+
+}
+
+class Avatar {
+
+}
+class Obstacle1 {
+
+}
+class Terrain1 {
+
+}
+class Terrain 2 {
+
+}
