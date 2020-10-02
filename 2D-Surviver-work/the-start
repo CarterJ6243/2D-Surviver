@@ -1,7 +1,8 @@
 let time;
 
 function setup(){
- createCanvas(400,400) 
+ createCanvas(400,400)
+ background(10,260,97)
 
 }
 function draw(){
@@ -9,12 +10,41 @@ function draw(){
 }
 
 class Avatar {
+  constructor(x, y, speed){
+  this.x = x;
+  this.y = y;
+  this.speed = speed;
+  }
 
+  drawMe();{
+  strokeWeight(1)
+  fill("green")
+  rect(this.x,this.y,10,10);
+  }
+
+  moveMe(){
+    if (keyIsDown(UP_ARROW)) {
+       this.y -= this.speed;
+    }
+
+    if (keyIsDown(DOWN_ARROW)) {
+        this.y += this.speed;
+    }
+    if (keyIsDown(LEFT_ARROW)) {
+      this.x -= this.speed;
+    }
+    if (keyIsDown(RIGHT_ARROW)){
+      this.x += this.speed;
+    }
+	}
 }
 class Obstacle1 {
 
 }
 class Terrain1 {
+  constructor(x,y){
+    
+  }
 
 }
 class Terrain 2 {
