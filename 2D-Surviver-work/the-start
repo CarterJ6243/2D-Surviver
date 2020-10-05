@@ -6,6 +6,8 @@ function setup(){
 
 }
 function draw(){
+  me.drawMe();
+  me.moveMe();
 
 }
 
@@ -43,7 +45,13 @@ class Obstacle1 {
 }
 class Terrain1 {
   constructor(x,y){
-    
+    this.x = x;
+    this.y = y;
+  }
+  drawTerrain1(){
+    strokeWeight(1);
+    fill("brown")
+    rect(this.x,this.y,50,50)
   }
 
 }
