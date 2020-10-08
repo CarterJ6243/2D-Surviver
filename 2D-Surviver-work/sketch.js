@@ -1,6 +1,7 @@
 let time;
 let life;
 let me;
+let obstacle1 = [];
 
 function setup(){
  createCanvas(400,400)
@@ -18,6 +19,11 @@ function draw(){
   me.drawMe();
   me.moveMe();
 
+  if (frameCount % 60 == 0) {
+      let  f = new Obstacle1(random(0,400), height, 1);
+      obstacle1.push(f);
+      console.log(obstacle1);
+    }
 }
 
 class Avatar {
@@ -56,9 +62,9 @@ class Avatar {
   }
 }
 class Obstacle1 {
-  constructor(){
-    this.x = x
-    this.y = y
+  constructor(x,y,speed){
+    this.x = x;
+    this.y = y;
     this.speed = speed
   }
   drawObstacle() {
@@ -80,7 +86,7 @@ class Terrain1 {
 
 }
 //damageMe(){
-//  if (this.x >= me.x-15 && this.x <= me.x+15 && this.y > me.y-40 && this.y < me.y+40){
+//  if (this.x >= me.x-5 && this.x <= me.x+5 && this.y > me.y-5 && this.y < me.y+5){
   //  deathSound.setVolume(0.1);
   //  deathSound.play();
   //  life = life-1
