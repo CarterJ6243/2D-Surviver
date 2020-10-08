@@ -5,8 +5,7 @@ let obstacle1 = [];
 
 function setup(){
  createCanvas(400,400)
- background(10,260,97)
- me = new Avatar(width/2,height/2)
+ me = new Avatar(width/2,height/2,3)
 
 }
 
@@ -16,13 +15,21 @@ function setup(){
 //}
 
 function draw(){
+  background(10,260,97)
   me.drawMe();
   me.moveMe();
+  me.stopMe();
 
-  if (frameCount % 60 == 0) {
-      let  f = new Obstacle1(random(0,400), height, 1);
+  if (frameCount % 100 == 0) {
+      let  f = new Obstacle1(random(0,400), 0, 1);
       obstacle1.push(f);
       console.log(obstacle1);
+    }
+  for (let i = 0; i < obstacle1.length; i++) {
+  	    obstacle1[i].drawObstacle();
+     	  obstacle1[i].moveObstacle();
+      	obstacle1[i].damageMe();
+
     }
 }
 
@@ -53,11 +60,29 @@ class Avatar {
     if (keyIsDown(RIGHT_ARROW)){
       this.x += this.speed;
     }
-	}
+    stopMe(x){
+      if (this.x=20) {
+      this.x = this.x + 1
+    }
+      if (this.x=380) {
+      this.x = this.x - 1
+    }
+      if (this.y=20) {
+      this.y = this.y + 1
+    }
+      if (this.y=380) {
+      this.y = this.y - 1
+    }
+  }
+}
+
+
 
   ohIdied(){
     if (life=0){
-
+      freeze
+      fill("black")
+      rect(200,200,400,400)
     }
   }
 }
@@ -72,6 +97,18 @@ class Obstacle1 {
     fill("red")
     ellipse(this.x,this.y,20,20)
   }
+  moveObstacle(x,y) {
+    this.x = this.x
+    this.y = this.
+    y+2
+  }
+  damageMe(){
+    if (this.x >= me.x-5 && this.x <= me.x+5 && this.y > me.y-5 && this.y < me.y+5){
+    //  deathSound.setVolume(0.1);
+    //  deathSound.play();
+      life = life-1
+    }
+  }
 }
 class Terrain1 {
   constructor(x,y){
@@ -85,11 +122,6 @@ class Terrain1 {
   }
 
 }
-//damageMe(){
-//  if (this.x >= me.x-5 && this.x <= me.x+5 && this.y > me.y-5 && this.y < me.y+5){
-  //  deathSound.setVolume(0.1);
-  //  deathSound.play();
-  //  life = life-1
 
 //  }
 //}
