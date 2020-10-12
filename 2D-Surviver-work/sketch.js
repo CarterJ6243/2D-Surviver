@@ -16,11 +16,6 @@ function setup(){
 //  mySound = loadSound('486166__ruben-uitenweerde__glass-breaking.wav')
 //}
 
-//function preload() {
-//  soundFormats('mp3', 'ogg','wav');
-//  deathSound = loadSound('486166__ruben-uitenweerde__glass-breaking.wav')
-//}
-
 function draw(){
   background(10,260,97)
   me.drawMe();
