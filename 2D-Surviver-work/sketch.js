@@ -1,13 +1,14 @@
-let time;
-let life;
+let time = [];
+let life = 1
 let me;
 let obstacle1 = [];
 let obstacle2 = [];
 let obstacle3 = [];
+let obstacle4 = [];
 
 function setup(){
  createCanvas(400,400)
- me = new Avatar(width/2,height/2,3)
+ me = new Avatar(width/2,height/2,5)
 
 }
 
@@ -20,12 +21,22 @@ function draw(){
   background(10,260,97)
   me.drawMe();
   me.moveMe();
-  //me.stopMe();
 
-  if (frameCount % 100 == 0) {
+  console.log(life);
+
+  if (life <= 0) {
+    fill("red")
+    rect(0,0/2,400,400)
+    textSize(32);
+    fill("black")
+    text('GAME OVER', 100,100)
+    text('RELOAD TO',100,200)
+    text('PLAY AGAIN',100,300)
+  }
+
+  if (frameCount % 60 == 0) {
       let  f = new Obstacle1(random(0,400), 0, 1);
       obstacle1.push(f);
-      console.log(obstacle1);
     }
   for (let i = 0; i < obstacle1.length; i++) {
   	    obstacle1[i].drawObstacle();
@@ -36,28 +47,31 @@ function draw(){
   if (frameCount % 240 == 0) {
     let b = new Obstacle2(0,random(20,330, 1));
     obstacle2.push(b);
-    console.log(obstacle2)
   }
   for (let i=0; i < obstacle2.length; i++) {
     obstacle2[i].drawObstacle2();
     obstacle2[i].moveObstacle2();
+    obstacle2[i].damageMe2();
   }
-  if (frameCount % 60 == 0) {
+  if (frameCount % 30 == 0) {
     let u = new Obstacle3(random(0,400),400, 1);
     obstacle3.push(u);
-    console.log(obstacle3);
   }
   for (let i=0; i < obstacle3.length; i++) {
     obstacle3[i].drawObstacle3();
     obstacle3[i].moveObstacle3();
+    //obstacle3[i].damageMe3();
+  }
+  if (frameCount % 800 == 0) {
+    let j = new Obstacle4(400,random(100,400),1)
+    obstacle4.push(j);
+  }
+    for (let i=0; i < obstacle4.length; i++) {
+      obstacle4[i].drawObstacle4();
+      obstacle4[i].moveObstacle4();
+      obstacle4[i].damageMe4();
   }
 }
-//functionTime(){
-//let time = 0
-  //if (frameCount % 60 ==0){
-  //    life = life + 1
-//  }
-//}
 
 class Avatar {
   constructor(x, y, speed){
@@ -88,9 +102,6 @@ class Avatar {
     }
   }
 }
-
-
-
 class Obstacle1 {
   constructor(x,y,speed){
     this.x = x;
@@ -107,14 +118,11 @@ class Obstacle1 {
     this.y = this.y+2
   }
   damageMe(){
-    if (this.x >= me.x-5 && this.x <= me.x+5 && this.y > me.y-5 && this.y < me.y+5){
-    //  deathSound.setVolume(0.1);
-    //  deathSound.play();
+    if (this.x >= me.x-10 && this.x <= me.x+20 && this.y > me.y && this.y-10 < me.y+20){
       life = life-1
     }
   }
 }
-
 class Obstacle2 {
   constructor(x,y,speed){
     this.x = x
@@ -127,16 +135,15 @@ class Obstacle2 {
     rect(this.x,this.y,40,40)
   }
   moveObstacle2(x,y){
-    this.x = this.x+5
+    this.x = this.x+3
     this.y = this.y
   }
   damageMe2() {
-    if(this.x >= me.x-20 && this.x <= me.x+20 && this.y > me.y-20 && this.y < me.y+20){
+    if(this.x >= me.x-20 && this.x <= me.x+20 && this.y > me.y-40 && this.y < me.y+20){
       life = life-1
     }
   }
 }
-
 class Obstacle3 {
   constructor(x,y,speed){
     this.x = x
@@ -150,6 +157,32 @@ class Obstacle3 {
   }
    moveObstacle3(x,y){
      this.x = this.x
-     this.y = this.y - 10
+     this.y = this.y - 7
    }
+  // damageMe3() {
+  //   if(this.x > me.x-10 && this.x <= me.x+10 && this.y > me.y-15 && this.y = me.y+0){
+  //     life = life-1
+  //   }
+  // }
+}
+class Obstacle4 {
+  constructor(x,y,speed){
+    this.x = x
+    this.y = y
+    this.speed = speed
+  }
+  drawObstacle4(){
+    strokeWeight(5);
+    line(this.x,this.y,this.x,this.y+100);
+    fill("black")
+  }
+  moveObstacle4(x,y){
+    this.x = this.x-1
+    this.y = this.y
+  }
+  damageMe4() {
+    if(this.x >= me.x+20 && this.x <= me.x-20 && this.y > me.y+100 && this.y < me.y-100){
+      life = life-1
+    }
+  }
 }
