@@ -4,17 +4,17 @@ let obstacle1 = [];
 let obstacle2 = [];
 let obstacle3 = [];
 let obstacle4 = [];
-let mySound;
+//let mySound;
 
 function setup(){
  createCanvas(400,400)
- me = new Avatar(width/2,height/2,5)
+ me = new Avatar(width/2,height/2,3)
 
 }
-function preload() {
-  soundFormats('mp3', 'ogg','wav');
-  mySound = loadSound('486166__ruben-uitenweerde__glass-breaking.wav')
-}
+//function preload() {
+//  soundFormats('mp3', 'ogg','wav');
+//  mySound = loadSound('486166__ruben-uitenweerde__glass-breaking.wav')
+//}
 
 //function preload() {
 //  soundFormats('mp3', 'ogg','wav');
@@ -140,8 +140,8 @@ class Obstacle1 {
   damageMe(){
     if (this.x >= me.x-10 && this.x <= me.x+20 && this.y > me.y && this.y-10 < me.y+20){
       life = life-1
-      mySound.setVolume(.1);
-      mySound.play();
+    //  mySound.setVolume(.1);
+    //  mySound.play();
     }
   }
 }
@@ -163,8 +163,8 @@ class Obstacle2 {
   damageMe2() {
     if(this.x >= me.x-20 && this.x <= me.x+20 && this.y > me.y-40 && this.y < me.y+20){
       life = life-1
-      mySound.setVolume(.1);
-      mySound.play();
+    //  mySound.setVolume(.1);
+    //  mySound.play();
     }
   }
 }
@@ -186,8 +186,8 @@ class Obstacle3 {
    damageMe3() {
      if(this.x >= me.x-5 && this.x <= me.x+5 && this.y >= me.y-2.5 && this.y <= me.y+2.5){
        life = life-1
-       mySound.setVolume(.1);
-       mySound.play();
+      // mySound.setVolume(.1);
+      // mySound.play();
      }
    }
 }
@@ -209,8 +209,8 @@ class Obstacle4 {
   damageMe4() {
     if (this.x >= me.x+2 && this.x <= me.x-2 && this.y >= me.y-10 && this.y <= me.y+100){
       life = life-1
-      mySound.setVolume(.1);
-      mySound.play();
+    //  mySound.setVolume(.1);
+    //  mySound.play();
     }
   }
 }
