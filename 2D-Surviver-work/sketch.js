@@ -8,7 +8,7 @@ let obstacle4 = [];
 
 function setup(){
  createCanvas(400,400)
- me = new Avatar(width/2,height/2,3)
+ me = new Avatar(width/2,height/2,2)
 
 }
 //function preload() {
