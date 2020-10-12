@@ -1,15 +1,19 @@
-let time = [];
 let life = 1
 let me;
 let obstacle1 = [];
 let obstacle2 = [];
 let obstacle3 = [];
 let obstacle4 = [];
+let mySound;
 
 function setup(){
  createCanvas(400,400)
  me = new Avatar(width/2,height/2,5)
 
+}
+function preload() {
+  soundFormats('mp3', 'ogg','wav');
+  mySound = loadSound('486166__ruben-uitenweerde__glass-breaking.wav')
 }
 
 //function preload() {
@@ -22,8 +26,6 @@ function draw(){
   me.drawMe();
   me.moveMe();
 
-  console.log(life);
-
   if (life <= 0) {
     fill("red")
     rect(0,0/2,400,400)
@@ -34,25 +36,35 @@ function draw(){
     text('PLAY AGAIN',100,300)
   }
 
-  if (frameCount % 60 == 0) {
-      let  f = new Obstacle1(random(0,400), 0, 1);
-      obstacle1.push(f);
+  if (frameCount > 0) {
+    if (frameCount % 60 == 0) {
+        let  f = new Obstacle1(random(0,400), 0, 1);
+        obstacle1.push(f);
+      }
+    for (let i = 0; i < obstacle1.length; i++) {
+    	    obstacle1[i].drawObstacle();
+       	  obstacle1[i].moveObstacle();
+        	obstacle1[i].damageMe();
+      }
+     if (frameCount < 0){
+      return
     }
-  for (let i = 0; i < obstacle1.length; i++) {
-  	    obstacle1[i].drawObstacle();
-     	  obstacle1[i].moveObstacle();
-      	obstacle1[i].damageMe();
-
+  }
+  if (frameCount > 420) {
+    if (frameCount % 240 == 0) {
+      let b = new Obstacle2(0,random(20,330, 1));
+      obstacle2.push(b);
     }
-  if (frameCount % 240 == 0) {
-    let b = new Obstacle2(0,random(20,330, 1));
-    obstacle2.push(b);
+    for (let i=0; i < obstacle2.length; i++) {
+      obstacle2[i].drawObstacle2();
+      obstacle2[i].moveObstacle2();
+      obstacle2[i].damageMe2();
   }
-  for (let i=0; i < obstacle2.length; i++) {
-    obstacle2[i].drawObstacle2();
-    obstacle2[i].moveObstacle2();
-    obstacle2[i].damageMe2();
-  }
+     if (frameCount < 420){
+     return
+    }
+}
+if (frameCount > 1200){
   if (frameCount % 30 == 0) {
     let u = new Obstacle3(random(0,400),400, 1);
     obstacle3.push(u);
@@ -60,19 +72,27 @@ function draw(){
   for (let i=0; i < obstacle3.length; i++) {
     obstacle3[i].drawObstacle3();
     obstacle3[i].moveObstacle3();
-    //obstacle3[i].damageMe3();
+    obstacle3[i].damageMe3();
   }
-  if (frameCount % 800 == 0) {
-    let j = new Obstacle4(400,random(100,400),1)
-    obstacle4.push(j);
-  }
-    for (let i=0; i < obstacle4.length; i++) {
-      obstacle4[i].drawObstacle4();
-      obstacle4[i].moveObstacle4();
-      obstacle4[i].damageMe4();
+  if (frameCount < 1200){
+  return
   }
 }
-
+//if (frameCount > 2100) {
+//  if (frameCount % 800 == 0) {
+//    let j = new Obstacle4(400,random(100,400),1)
+//    obstacle4.push(j);
+//  }
+//  for (let i=0; i < obstacle4.length; i++) {
+//    obstacle4[i].drawObstacle4();
+//    obstacle4[i].moveObstacle4();
+//    obstacle4[i].damageMe4();
+//  }
+//  if (frameCount < 2100) {
+//  return
+//  }
+//}
+}
 class Avatar {
   constructor(x, y, speed){
   this.x = x;
@@ -120,6 +140,8 @@ class Obstacle1 {
   damageMe(){
     if (this.x >= me.x-10 && this.x <= me.x+20 && this.y > me.y && this.y-10 < me.y+20){
       life = life-1
+      mySound.setVolume(.1);
+      mySound.play();
     }
   }
 }
@@ -141,6 +163,8 @@ class Obstacle2 {
   damageMe2() {
     if(this.x >= me.x-20 && this.x <= me.x+20 && this.y > me.y-40 && this.y < me.y+20){
       life = life-1
+      mySound.setVolume(.1);
+      mySound.play();
     }
   }
 }
@@ -153,17 +177,19 @@ class Obstacle3 {
   drawObstacle3(){
     strokeWeight(1);
     fill("red")
-    triangle(this.x,this.y,this.x+10,this.y-15,this.x-10,this.y-15)
+    rect(this.x,this.y,10,5)
   }
    moveObstacle3(x,y){
      this.x = this.x
-     this.y = this.y - 7
+     this.y = this.y - 6
    }
-  // damageMe3() {
-  //   if(this.x > me.x-10 && this.x <= me.x+10 && this.y > me.y-15 && this.y = me.y+0){
-  //     life = life-1
-  //   }
-  // }
+   damageMe3() {
+     if(this.x >= me.x-5 && this.x <= me.x+5 && this.y >= me.y-2.5 && this.y <= me.y+2.5){
+       life = life-1
+       mySound.setVolume(.1);
+       mySound.play();
+     }
+   }
 }
 class Obstacle4 {
   constructor(x,y,speed){
@@ -173,7 +199,7 @@ class Obstacle4 {
   }
   drawObstacle4(){
     strokeWeight(5);
-    line(this.x,this.y,this.x,this.y+100);
+    rect(this.x,this.y,2,-100);
     fill("black")
   }
   moveObstacle4(x,y){
@@ -181,8 +207,10 @@ class Obstacle4 {
     this.y = this.y
   }
   damageMe4() {
-    if(this.x >= me.x+20 && this.x <= me.x-20 && this.y > me.y+100 && this.y < me.y-100){
+    if (this.x >= me.x+2 && this.x <= me.x-2 && this.y >= me.y-10 && this.y <= me.y+100){
       life = life-1
+      mySound.setVolume(.1);
+      mySound.play();
     }
   }
 }
