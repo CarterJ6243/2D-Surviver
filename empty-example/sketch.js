@@ -32,6 +32,9 @@ fill("black")
     text('GAME OVER', 100,100)
     text('RELOAD TO',100,200)
     text('PLAY AGAIN',100,300)
+    textSize(40)
+    fill("black")
+      text(time,325,80)
   }
 
   if (frameCount > 0) {
